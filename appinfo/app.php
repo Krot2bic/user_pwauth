@@ -18,27 +18,29 @@
 */
 
 /**
- * ownCloud - user_pwauth
- *
- * @author Clément Véret
- * @author Philip Taffner
- */
+* ownCloud - user_pwauth
+*
+* @author Clément Véret
+* @copyright 2012 Clément Véret veretcle+owncloud@mateu.be
+* 
+**/
 
-require_once('apps/user_pwauth/user_pwauth.php');
+require_once('/var/www/nextcloud/apps/user_pwauth/user_pwauth.php');
 
 OCP\App::registerAdmin('user_pwauth','settings');
 
 // define UID_LIST (first - last user;user;user)
-define('OC_USER_BACKEND_PWAUTH_UID_LIST', '1000-1010');
+define('OC_USER_BACKEND_PWAUTH_UID_LIST', '1000-1020');
 define('OC_USER_BACKEND_PWAUTH_PATH', '/usr/sbin/pwauth');
 
-//OC_User::registerBackend('PWAUTH');
+
 OC_User::useBackend(new \OCA\user_pwauth\USER_PWAUTH());
 
 // add settings page to navigation
 $entry = array(
 	'id' => 'user_pwauth_settings',
-	'order'=> 1,
-	'href' => OC_Helper::linkTo('user_pwauth', 'settings.php'),
+	'order' => 1,
+	'href' => \OCP\Util::linkTo('user_pwauth', 'settings.php'),
 	'name' => 'PWAUTH'
 );
+?>

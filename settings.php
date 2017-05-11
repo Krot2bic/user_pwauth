@@ -24,7 +24,7 @@
  *
  */
 
-OC_Util::checkAdminUser();
+OCP\User::checkAdminUser();
 
 $params = array('uid_list', 'pwauth_path');
 
@@ -34,17 +34,15 @@ if ($_POST) {
 	
 	foreach($params as $param){
 		if(isset($_POST[$param])){
-			OC_Appconfig::setValue('user_pwauth', $param, $_POST[$param]);
+			\OCP\Config::setAppValue('user_pwauth', $param, $_POST[$param]);
 		}
 	}
 }
 
-OCP\Util::addStyle('user_pwauth', 'settings');
-
 // fill template
-$tmpl = new OC_Template( 'user_pwauth', 'settings');
-$tmpl->assign( 'uid_list', OC_Appconfig::getValue('user_pwauth', 'uid_list', OC_USER_BACKEND_PWAUTH_UID_LIST));
-$tmpl->assign( 'pwauth_path', OC_Appconfig::getValue('user_pwauth', 'pwauth_path', OC_USER_BACKEND_PWAUTH_PATH));
+$tmpl = new \OCP\Template( 'user_pwauth', 'settings');
+$tmpl->assign( 'uid_list', \OCP\Config::getAppValue('user_pwauth', 'uid_list', OC_USER_BACKEND_PWAUTH_UID_LIST));
+$tmpl->assign( 'pwauth_path', \OCP\Config::getAppValue('user_pwauth', 'pwauth_path', OC_USER_BACKEND_PWAUTH_PATH));
 
 return $tmpl->fetchPage();
 ?>
